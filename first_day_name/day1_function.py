@@ -35,6 +35,7 @@ def printMax(x, y):
     else:
         print(y, '最大')
 
-print(printMax(3,5))
+# print(printMax(3,5))
+#
+# print(printMax.__doc__)
 
-print(printMax.__doc__)
