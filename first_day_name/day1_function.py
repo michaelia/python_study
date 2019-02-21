@@ -39,3 +39,7 @@ def printMax(x, y):
 #
 # print(printMax.__doc__)
 
+
+# 获取参数的幂运算
+g=lambda x,*args:map(lambda y:pow(x,y),args)
+print(g(2,2,3))
