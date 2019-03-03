@@ -60,3 +60,33 @@ def fab(max):
 g=list(map(lambda x: print(x),fab(15)))
 g
 print(sys.getsizeof(g))
+
+class A():
+    def __init__(self):
+        print('A start')
+        print('A level')
+class B(A):
+    def __init__(self):
+        print('B start')
+        print('B level')
+class C(A):
+    def __init__(self):
+        print('C start')
+        print('C level')
+class D(B,C):
+    def __init__(self):
+        print('D start')
+        print('D level')
+d=D();
+
+
+# 闭包
+def who(name):
+    def do(what):
+        print(name, 'say:', what)
+
+    return do
+
+lucy = who('lucy')
+
+lucy('i want drink!')
