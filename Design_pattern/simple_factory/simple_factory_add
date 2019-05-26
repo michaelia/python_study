@@ -1,0 +1,58 @@
+##### 概念
+- 纯虚函数：是为了实现一个接口，起到一个规范的作用，规范继承这个类的程序员必须实现这个函数，纯虚函数本身没有实现本体
+- 抽象类：称带有纯虚函数的类为抽象类
+- 抽象类的作用：抽象类的主要作用是将有关的操作作为结果接口组织在一个继承层次结构中，由它来为派生类提供一个公共的根，派生类将具体实现在其基类中作为接口的操作。所以派生类实际上刻画了一组子类的操作接口的通用语义，这些语义也传给子类，子类可以具体实现这些语义，也可以再将这些语义传给自己的子类。
+- 使用抽象类时注意：a、抽象类只能作为基类来使用，其纯虚函数的实现由派生类给出。如果派生类中没有重新定义纯虚函数，而只是继承基类的纯虚函数，则这个派生类仍然还是一个抽象类。如果派生类中给出了基类纯虚函数的实现，则该派生类就不再是抽象类了，它是一个可以建立对象的具体的类。b、抽象类是不能定义对象的。 
+ 
+```
+@dataclass
+class Operation(ABC):
+
+    _numberA:Number,_numberB:Number=1,2
+
+    @abstractmethod
+    def GetResult(self):
+        result=0
+        pdb.set_trace()
+        return result
+
+```
+图中【Operation】方法是抽象类， 【GetResult()】的方法是纯虚函数。为了统一接口而产生，起规范作用，具体看实现。
+
+##### 工厂模式（Factory Pattern）设计模式属于创建型模式，它提供了一种创建对象的最佳方式
+##### 优点： 1、一个调用者想创建一个对象，只要知道其名称就可以了。 2、扩展性高，如果想增加一个产品，只要扩展一个工厂类就可以。 3、屏蔽产品的具体实现，调用者只关心产品的接口。
+##### 缺点：每次增加一个产品时，都需要增加一个具体类和对象实现工厂，使得系统中类的个数成倍增加，在一定程度上增加了系统的复杂度，同时也增加了系统具体类的依赖。这并不是什么好事。
+
+
+##### 简单的工厂模式中，为了减少实力化的对象，则需要考虑创造一个简单的工厂类。
+
+```
+@dataclass
+class OperationFactory():
+
+    def createOpeation(self,operation):
+
+        operationList = {
+            "add": OperationAdd(),
+            "sub": OperationSub(),
+            "mul": OperationMul(),
+            "div": OperationDiv()
+        }
+
+        if not operationList.get(operation):
+            raise "清输入正确的"
+        return operationList[operation]
+
+```
+##### 使用工厂模式，进行分类算法，但是由于每次新增一个方法，都是需要修改原来的方法，违反了开闭原则，所以优化-抽象工厂模式
+
+```
+@dataclass
+class OperationFactory(ABC):
+
+    @abstractmethod
+    def createOpeation(self):
+        pass
+```
+
+##### 把工厂类抽象出来，减少对工厂类变更--》具体实现：factory_abstract.py
