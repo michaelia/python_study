@@ -19,4 +19,25 @@
   
   
   本例举例商城的计算，算法组：1、正常收费 2、满100减50 3、打8折
+  、、、
+  
+# 测试第一种CashNormal策略
+    strategy = CashNormal()
+    contextone=context(strategy)
+    print(contextone.contextInterface(500))
+
+# 测试第二中
+    stratetwo= CashRebate(300,100)
+    contexttwo = context(stratetwo)
+    print(contexttwo.contextInterface(400))
+
+# 测试第三种
+    stratethree = CashRetun(0.8)
+    contextthree = context(stratethree)
+    print(contextthree.contextInterface(400))
+  、、、
+  
+  以上是需要客户端实现判断使用那种策略子类，策略类拥有了根据对象来动态的决定方法的能力。<br>
+  但是单纯的策略类有一大坏处，由于调用策略类需要先传入某个子类的对象，这就使得客户端代码与多个子类存在耦合。
+  <br>为了客户端与各种子类的解耦，则可以采用工厂模式与策略模式结合--》具体：strategy_factory.py
   
