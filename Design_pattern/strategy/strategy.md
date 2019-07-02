@@ -41,3 +41,20 @@
   但是单纯的策略类有一大坏处，由于调用策略类需要先传入某个子类的对象，这就使得客户端代码与多个子类存在耦合。
   <br>为了客户端与各种子类的解耦，则可以采用工厂模式与策略模式结合--》具体：strategy_factory.py
   
+ ```
+ 改为工厂类
+@dataclass
+class contextFactory():
+
+    def createOpeation(self,operation,monkey=0,reback=0,rerate=0,reCondition=0):
+        operationList={
+            "normal":CashNormal(),
+            "rebate":CashRebate(reback,rerate),
+            "csreturn":CashRetun(reCondition)
+        }
+
+        if operation != "" or None:
+            return context(operationList[operation]).contextInterface(monkey)
+
+        return " "
+```
